@@ -12,9 +12,9 @@ import com.jme3.input.controls.KeyTrigger;
  *
  * @author Joebh
  */
-public class HandleInput {
+public class InputManagerFactory {
 
-    public HandleInput(InputManager inputManager) {
+    public static InputManager handleInput(InputManager inputManager) {
         inputManager.addMapping("left", new KeyTrigger(KeyInput.KEY_A),
                 new KeyTrigger(KeyInput.KEY_LEFT)); // A and left arrow
         inputManager.addMapping("right", new KeyTrigger(KeyInput.KEY_D),
@@ -23,6 +23,7 @@ public class HandleInput {
                 new KeyTrigger(KeyInput.KEY_UP)); // A and left arrow
         inputManager.addMapping("down", new KeyTrigger(KeyInput.KEY_S),
                 new KeyTrigger(KeyInput.KEY_DOWN)); // D and right arrow
+        return inputManager;
         
     }
 }

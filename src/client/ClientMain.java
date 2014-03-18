@@ -5,7 +5,7 @@
 package client;
 
 import client.input.AnalogInput;
-import client.input.HandleInput;
+import client.input.InputManagerFactory;
 import model.Player;
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.InputManager;
@@ -46,8 +46,7 @@ public class ClientMain extends SimpleApplication implements ClientStateListener
     @Override
     public void simpleInitApp() {
         try {
-            myPlayer = new Player();
-            
+            myPlayer = new Player();            
             
             Serializer.registerClass(MovePlayerMessage.class);
             Serializer.registerClass(SendPosition.class);
@@ -55,17 +54,14 @@ public class ClientMain extends SimpleApplication implements ClientStateListener
             myClient = Network.connectToServer("localhost", 6143);
             
             InputManager input = this.getInputManager();
-            new HandleInput(input);
+            InputManagerFactory.handleInput(input);
+            
             input.addListener(new AnalogInput(myClient), new String[]{"up", "down", "left", "right"});
 
             myClient.addMessageListener(new ClientListener(this), SendPosition.class);
             myClient.addClientStateListener(this);
 
-
             myClient.start();
-
-            Message m = new MovePlayerMessage("up");
-            myClient.send(m);
         } catch (IOException ex) {
             Logger.getLogger(ClientMain.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -78,6 +74,7 @@ public class ClientMain extends SimpleApplication implements ClientStateListener
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
+        
     }
 
     public Player getMyPlayer() {
@@ -94,8 +91,6 @@ public class ClientMain extends SimpleApplication implements ClientStateListener
         
         //send request location from server
         c.send(new RequestPosition());
-        
-        
     }
 
     public void clientDisconnected(Client c, DisconnectInfo info) {
