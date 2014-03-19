@@ -4,8 +4,6 @@ package messages;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import com.jme3.network.AbstractMessage;
 import com.jme3.network.serializing.Serializable;
 
@@ -14,34 +12,31 @@ import com.jme3.network.serializing.Serializable;
  * @author Joebh
  */
 @Serializable
-public class SendPosition extends AbstractMessage{
+public class SendPosition extends AbstractMessage {
 
-    private Double x, y;
+    private float x, y;
 
     public SendPosition() {
     }
-    
-    
-    public SendPosition(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
 
-    public Double getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(Double x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public Double getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(Double y) {
+    public void setY(float y) {
         this.y = y;
     }
 
-    
+    public SendPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 }

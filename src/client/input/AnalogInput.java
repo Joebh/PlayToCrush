@@ -20,8 +20,6 @@ public class AnalogInput implements AnalogListener {
         this.client = client;
     }
     
-    
-    
     public void onAnalog(String name, float value, float tpf) {
         if ("up".equals(name)) {
             client.send(new MovePlayerMessage("up"));

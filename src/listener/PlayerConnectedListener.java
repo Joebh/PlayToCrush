@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package listener;
 
 import com.jme3.network.ConnectionListener;
@@ -18,7 +14,7 @@ public class PlayerConnectedListener implements ConnectionListener{
     public void connectionAdded(Server server, HostedConnection conn) {
         System.out.println("Connection loaded " + conn.getId());
         
-        conn.setAttribute("player", new Player(50.0, 50.0));
+        conn.setAttribute("player", new Player(2.0f, 2.0f));
     }
 
     public void connectionRemoved(Server server, HostedConnection conn) {

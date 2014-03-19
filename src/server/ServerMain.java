@@ -24,37 +24,32 @@ import messages.SendPosition;
  */
 public class ServerMain extends SimpleApplication {
 
-    private static Server myServer;
+    private static Server server;
 
     public static void main(String[] args) {
         ServerMain app = new ServerMain();
         app.start(JmeContext.Type.Headless); // headless type for servers!
-        
-        ClientMain client = new ClientMain();
-        client.start();
     }
 
     @Override
     public void destroy() {
-        myServer.close();
-
-
+        server.close();
         super.destroy();
     }
 
     @Override
     public void simpleInitApp() {
         try {            
-            myServer = Network.createServer(6143);
+            server = Network.createServer(6143);
             
             Serializer.registerClass(MovePlayerMessage.class);
             Serializer.registerClass(SendPosition.class);
             Serializer.registerClass(RequestPosition.class);
-            myServer.addMessageListener(new ServerListener(), MovePlayerMessage.class);
-            myServer.addMessageListener(new ServerListener(), RequestPosition.class);
-            myServer.addConnectionListener(new PlayerConnectedListener());
+            server.addMessageListener(new ServerListener(), MovePlayerMessage.class);
+            server.addMessageListener(new ServerListener(), RequestPosition.class);
+            server.addConnectionListener(new PlayerConnectedListener());
             
-            myServer.start();
+            server.start();
         } catch (IOException ex) {
             Logger.getLogger(ServerMain.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -62,15 +57,7 @@ public class ServerMain extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf) {
-        Collection<HostedConnection> connections = myServer.getConnections();
-
-        for (HostedConnection connection : connections) {
-            
-        }
+        
     }
 
-    @Override
-    public void simpleRender(RenderManager rm) {
-        //TODO: add render code
-    }
 }
